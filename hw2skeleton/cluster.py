@@ -33,7 +33,7 @@ def compute_similarity(site_a, site_b, mat):
 
     # k = increasing this increases accuracy, more random iterations 
     #     so better chance of finding optimal order
-    k = 1000
+    k = 10 # this was 1000 when i generated my simmatrix
 
     # normfactor = increasing this increases chances of attaining high 
     #              structural similarity

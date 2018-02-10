@@ -25,9 +25,9 @@ def test_similarity():
     mat = pd.read_csv(os.path.join("data", "12859_2009_3124_MOESM2_ESM.mat"),sep ='\s')
     mat = normalize_matrix(mat)
 
-    files = [f for f in os.listdir('../data') if f.endswith('.pdb')]
+    files = [f for f in os.listdir('data/') if f.endswith('.pdb')]
     simmat = pd.DataFrame(np.zeros((len(files),len(files))),columns=files,index=files)
-    for a in tqdm(range(len(files))):
+    for a in range(len(files)):
         for b in range(a,len(files)):
             filename_a = os.path.join("data", files[a])
             filename_b = os.path.join("data", files[b])
@@ -37,9 +37,9 @@ def test_similarity():
             sim = cluster.compute_similarity(activesite_a, activesite_b, mat)
             simmat.iloc[a,b] = sim
             simmat.iloc[b,a] = sim
-    simmat.to_pickle('simmat10005070.pkl')
+    # simmat.to_pickle('simmat10005070.pkl')
 
-    return simmat
+    return
 
 def test_partition_clustering():
     # tractable subset
