@@ -25,7 +25,7 @@ def test_similarity():
     mat = pd.read_csv(os.path.join("data", "12859_2009_3124_MOESM2_ESM.mat"),sep ='\s')
     mat = normalize_matrix(mat)
 
-    files = [f for f in os.listdir('/Users/student/Documents/Algorithms-W2018/hw2-skeleton/data') if f.endswith('.pdb')]
+    files = [f for f in os.listdir('../data') if f.endswith('.pdb')]
     simmat = pd.DataFrame(np.zeros((len(files),len(files))),columns=files,index=files)
     for a in tqdm(range(len(files))):
         for b in range(a,len(files)):
@@ -53,11 +53,6 @@ def test_partition_clustering():
 
     simmat = pd.read_pickle('simmmat_10005070.pkl')
     M, C = cluster.cluster_by_partitioning(active_sites,simmat)
-    print('\nMedoids:')
-    print(M)
-    print('\nClusters:')
-    for i in range(len(C)):
-        print('Cluster %d: %s' % (i, str(list(C.values())[i])))
     return 
 
 def test_hierarchical_clustering():
@@ -71,7 +66,4 @@ def test_hierarchical_clustering():
 
     # update this assertion
     Z = cluster.cluster_hierarchically(active_sites, simmat)
-    for i in Z:
-        print(i)
-    input()
     return
