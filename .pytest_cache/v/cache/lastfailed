@@ -1,0 +1,5 @@
+{
+  "test/test_io.py::test_atoms[276.pdb-0-atoms0-xs0-ys0-zs0]": true,
+  "test/test_io.py::test_residues[276.pdb-names0-numbers0]": true,
+  "test/test_io.py::test_residues[4629.pdb-names1-numbers1]": true
+}

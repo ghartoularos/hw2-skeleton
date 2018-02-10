@@ -1,6 +1,7 @@
 import glob
 import os
 from .utils import Atom, Residue, ActiveSite
+import Bio.PDB
 
 
 def read_active_sites(dir):
@@ -38,37 +39,42 @@ def read_active_site(filepath):
 
     active_site = ActiveSite(name[0])
 
-    r_num = 0
+    # r_num = 0
 
-    # open pdb file
-    with open(filepath, "r") as f:
-        # iterate over each line in the file
-        for line in f:
-            if line[0:3] != 'TER':
-                # read in an atom
-                atom_type = line[13:17].strip()
-                x_coord = float(line[30:38])
-                y_coord = float(line[38:46])
-                z_coord = float(line[46:54])
-                atom = Atom(atom_type)
-                atom.coords = (x_coord, y_coord, z_coord)
+    # # open pdb file
+    # with open(filepath, "r") as f:
+    #     # iterate over each line in the file
+    #     for line in f:
+    #         if line[0:3] != 'TER':
+    #             # read in an atom
+    #             atom_type = line[13:17].strip()
+    #             x_coord = float(line[30:38])
+    #             y_coord = float(line[38:46])
+    #             z_coord = float(line[46:54])
+    #             atom = Atom(atom_type)
+    #             atom.coords = (x_coord, y_coord, z_coord)
 
-                residue_type = line[17:20]
-                residue_number = int(line[23:26])
+    #             residue_type = line[17:20]
+    #             residue_number = int(line[23:26])
 
-                # make a new residue if needed
-                if residue_number != r_num:
-                    residue = Residue(residue_type, residue_number)
-                    r_num = residue_number
+    #             # make a new residue if needed
+    #             if residue_number != r_num:
+    #                 residue = Residue(residue_type, residue_number)
+    #                 r_num = residue_number
 
-                # add the atom to the residue
-                residue.atoms.append(atom)
+    #             # add the atom to the residue
+    #             residue.atoms.append(atom)
 
-            else:  # I've reached a TER card
-                active_site.residues.append(residue)
-
+    #         else:  # I've reached a TER card
+    #             active_site.residues.append(residue)
+    
+    pdb_parser = Bio.PDB.PDBParser(QUIET = True)
+    active_site = pdb_parser.get_structure(id='actsite',file=filepath)
     return active_site
 
+#####################################################################
+# The below functions aren't being used
+#####################################################################
 
 def write_clustering(filename, clusters):
     """
